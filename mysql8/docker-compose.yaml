@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql:
+    # no，always, no-failure， unless-stopped
+    restart: 'no'
+    image: mysql:8.0.28
+    container_name: mysql
+    volumes:
+      - ./logs:/var/log/mysql 
+      - ./data:/var/lib/mysql
+      - ./conf/my.cnf:/etc/my.cnf
+      #      数据库还原目录 可将需要还原的sql文件放在这里
+      # - /docker/mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "TZ=Asia/Shanghai"
+      - "MYSQL_ROOT_PASSWORD=root"
+      # - "MYSQL_DATABASE=mydb"
+      # - "TZ=Asia/Shanghai"
+      # - "MYSQL_USER": 'test'
+      # - "MYSQL_PASS": 'yourpassword'
+    ports:
+      - 3306:3306
